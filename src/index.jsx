@@ -1,4 +1,3 @@
-//reactDnD カレンダー内のコンテンツの要素を別ファイルで管理し、入れかえ可能にする(dropSourceにする)。また、表の要素を、dropTarget要素にする。onDropの関数において、
 import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
 import Nouislider from 'react-nouislider';
@@ -6,7 +5,8 @@ import "./nonslider.css"
 import 'bootstrap/dist/css/bootstrap.css';
 import { Z_ASCII } from "zlib";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-
+import PlanSlider from "./PlanSlider.jsx";
+import ChoiceWeek from "./ChoiceWeek.jsx";
 class App extends React.Component{
     //初期化
     constructor(props){
@@ -25,9 +25,6 @@ class App extends React.Component{
             day: today,
             choiceWeek: this.calendar[Math.ceil(today/7) - 1],
             plans: [],
-            planContent:["","","","","","",""],
-            planStartTime: ["","","","","","",""],
-            planEndTime: ["","","","","","",""],
         };
         //bindしてthisを代入
         this.changeMonth = this.changeMonth.bind(this);
@@ -36,7 +33,7 @@ class App extends React.Component{
         this.deletePlan = this.deletePlan.bind(this);
         this.changeTimes = this.changeTimes.bind(this);
         //this.changeContent = this.changeContent.bind(this);
-        //this.addPlanContent = this.addPlanContent.bind(this);
+        this.addPlanContent = this.addPlanContent.bind(this);
     }
     //表示する月日を変更するメソッド
     changeMonth(changeNum){
@@ -68,39 +65,13 @@ class App extends React.Component{
         }
     }
     //planをカレンダー上に入れるためのメソッド(onClick)
-    addPlanContent(event){
+    addPlanContent(newPlan){
         //this.state.plansにpuchする(あまり好ましくはないかもしれない)
-        this.state.plans.push({
-            id: this.state.plans.length,
-            date: this.state.year+"/"+this.state.month+"/"+event.target.name,
-            startTime: this.state.planStartTime[event.target.id],
-            endTime: this.state.planEndTime[event.target.id],
-            plan: this.state.planContent[event.target.id]
-        });
+        this.state.plans.push(newPlan);
         //plansをthis.state.plansでsetState
         this.setState({
             plans: this.state.plans
         });
-    }
-    //input内の文字が変化した際発火するメソッド(Reactのform処理)
-    changeContent(event){
-        //3種類のinputを管理するためifで分ける
-        //planContentが予定の内容
-        //planStartTimeが予定の開始時刻
-        //planEndTimeが予定の終了時刻
-        if(event.target.name == "planContent"){
-            const copyPlanContent = this.state.planContent.slice();
-            copyPlanContent[parseInt(event.target.id)] = event.target.value;
-            this.setState({[event.target.name]:copyPlanContent});
-        }else if(event.target.name == "planStartTime"){
-            const copyPlanStartTime = this.state.planStartTime.slice();
-            copyPlanStartTime[parseInt(event.target.id)] = event.target.value;
-            this.setState({[event.target.name]:copyPlanStartTime});
-        }else if(event.target.name == "planEndTime"){
-            const copyPlanEndTime = this.state.planEndTime.slice();
-            copyPlanEndTime[parseInt(event.target.id)] = event.target.value;
-            this.setState({[event.target.name]:copyPlanEndTime});
-        }
     }
 
     //カレンダーを作成するメソッド
@@ -230,43 +201,8 @@ class App extends React.Component{
                     </tbody>
                 </table>
                 </DragDropContext>
-                <span>
-                {this.state.choiceWeek.map((day, j) => {
-                    //予定を入れるところの描画
-                    if(day != null){
-                    return <div key={`${j}`}>
-                        {day}
-                        <input type="text" id={j} name = "planContent" value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
-                        Time
-                        <input type="text" id={j} name = "planStartTime" value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}/>
-                        ~
-                        <input type="text" id={j} name = "planEndTime" value={this.state.planEndTime[j]} onChange={event => this.changeContent(event)}/>
-                        <input type="button" name={day} value="追加" id={j} onClick={(event) => this.addPlanContent(event)}/>
-                        </div>
-                    }
-                })}
-                {this.state.plans.map(content => {
-                    //予定の時間をバーで調節できる(実装中)
-                    if(this.state.year+"/"+this.state.month+"/"+this.state.day == content.date){
-                        console.log(this.state.day);
-                        return <div className = "examples">{content.plan}
-                        <Nouislider
-                            start={[content.startTime, content.endTime]}
-                            range={{
-                            min: [0],
-                            max: [24],
-                            }}
-                            step = {1}
-                            pips={{ mode: 'count', values: 25 }}
-                            onChange ={this.changeTimes(content)}
-                            clickablePips
-                        />
-                        </div>
-                    }
-                })
-                
-                }
-                </span>
+                <ChoiceWeek choiceWeek={this.state.choiceWeek} addPlanContent={this.addPlanContent} plans={this.state.plans} year={this.state.year} month={this.state.month}/>
+                <PlanSlider plans={this.state.plans} year={this.state.year} month={this.state.month} day={this.state.day} changeTimes={this.changeTimes}/>
             </Fragment>
         );
     }
