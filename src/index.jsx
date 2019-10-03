@@ -7,6 +7,8 @@ import { Z_ASCII } from "zlib";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import PlanSlider from "./PlanSlider.jsx";
 import ChoiceWeek from "./ChoiceWeek.jsx";
+import DragDropTable from "./DragDropTable.jsx";
+
 class App extends React.Component{
     //初期化
     constructor(props){
@@ -29,9 +31,7 @@ class App extends React.Component{
         //bindしてthisを代入
         this.changeMonth = this.changeMonth.bind(this);
         this.changeWeekandDay = this.changeWeekandDay.bind(this);
-        this.onDragEnd = this.onDragEnd.bind(this);
-        this.deletePlan = this.deletePlan.bind(this);
-        this.changeTimes = this.changeTimes.bind(this);
+        // this.changeTimes = this.changeTimes.bind(this);
         //this.changeContent = this.changeContent.bind(this);
         this.addPlanContent = this.addPlanContent.bind(this);
     }
@@ -52,25 +52,15 @@ class App extends React.Component{
         }
     }
     //カレンダーをクリックすると週の変更が行われるメソッド
-    changeWeekandDay(event){
-        if(event.target.getAttribute("data-title") != "delete"){
-            //クリックした週を格納
-            const choiceDay = event.target.getAttribute("data-title");
-            console.log(Math.ceil(choiceDay/5) - 1);
-            //週のstateを変更
-            if(choiceDay != null){
-                this.setState({choiceWeek: this.calendar[Math.ceil(choiceDay/7) - 1]});
-                this.setState({day: choiceDay});
-            }
-        }
+    changeWeekandDay(choiceDay){
+        this.setState({choiceWeek: this.calendar[Math.ceil(choiceDay/7) - 1]});
+        this.setState({day: choiceDay});
     }
     //planをカレンダー上に入れるためのメソッド(onClick)
-    addPlanContent(newPlan){
-        //this.state.plansにpuchする(あまり好ましくはないかもしれない)
-        this.state.plans.push(newPlan);
+    addPlanContent(newPlans){
         //plansをthis.state.plansでsetState
         this.setState({
-            plans: this.state.plans
+            plans: newPlans
         });
     }
 
@@ -94,46 +84,9 @@ class App extends React.Component{
         });
     }
 
-    deletePlan(event){
-        let copyPlans = this.state.plans;
-        this.state.plans.map( (plan,id) =>{
-            if(String(id) == event.target.id){
-                console.log(event.target.id);
-                copyPlans.splice(id,1);
-            }
-        });
-        this.setState({plans: copyPlans});
-    }
-    onDragEnd(result){
-        console.log(result);
-        const {destination, source, draggableId} = result;
-        console.log(source, draggableId);
-        let copyPlans = this.state.plans;
-        copyPlans.map((plan,id) => {
-            if(id==draggableId){
-                copyPlans[id].date = copyPlans[id].date.split("/")[0]+"/"+copyPlans[id].date.split("/")[1]+"/"+destination.droppableId;
-            }
-        });
-        this.setState({plans: copyPlans});
-    }
-
-    changeTimes = Plan => (render, handle, value, un, percent)=>{
-        let copyPlans = this.state.plans;
-        copyPlans.map( (plan,id) =>{
-            if(plan.date.split("/")[2] == this.state.day && Plan.id == plan.id){
-                plan.startTime = value[0];
-                plan.endTime = value[1];
-            }
-        });
-        this.setState({plans: copyPlans});
-        //console.log(event);
-    };
     render(){
         //setStateした際にもう一度カレンダーを作り直す
         this.calendar = this.createCalender(this.state.year,this.state.month);
-        console.log(this.state.year, this.state.month);
-        console.log(this.state.choiceWeek);
-        console.log(this.state.plans);
         return (
             <Fragment>
                 <div>
@@ -141,68 +94,9 @@ class App extends React.Component{
                     <span>{this.state.year}年{this.state.month}月</span>
                     <button onClick = {() => this.changeMonth(1)}>＞＞</button>
                 </div>
-                <DragDropContext onDragEnd={this.onDragEnd}>
-                <table>
-                <thead>
-                    <tr>
-                        <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        {this.calendar.map((week, i) => {
-                            //カレンダーの表の内部を作成
-                            return <tr key={week.join("")}>
-                                {week.map((day, j) => { 
-                                    let width = "";
-                                    let height = "";
-                                    //予定の有る無しでwidth,heightの変更
-                                    if(this.state.plans.length != 0){
-                                        this.state.plans.map(content => {
-                                            if(this.state.year+"/"+this.state.month+"/"+day == content.date){
-                                                width = "200";
-                                                height = "200";
-                                            }else{
-                                                width = "200";
-                                                height = "200";
-                                            }
-                                        })
-                                    }else{
-                                        width = "200";
-                                        height = "200";
-                                    }
-                                    //マスのReturn
-                                    return<Droppable droppableId={`${day}`}>
-                                                {(provided, snapshot) => {
-                                                    return(<th key={`${i}${j}`} ref={provided.innerRef} data-title={day} width={width} height={height} onClick={event => this.changeWeekandDay(event)}>
-                                                        {day}
-                                                            {this.state.plans.map(
-                                                                (content,id) => {
-                                                                if(this.state.year+"/"+this.state.month+"/"+day == content.date){
-                                                                            return (<Draggable draggableId={`${id}`} index={i+j}>
-                                                                                        {(provided, snapshot) => {return (
-                                                                                        <div ref={provided.innerRef} 
-                                                                                        {...provided.draggableProps}
-                                                                                        {...provided.dragHandleProps}
-                                                                                        data-title={day}>
-                                                                                            {content.plan}<button id={`${id}`} data-title={"delete"} onClick = {event => this.deletePlan(event)}>×</button>
-                                                                                        </div>);}}
-                                                                            </Draggable>
-                                                                            )
-                                                                    }
-                                                            })
-                                                            }
-                                                            {provided.placeholder}
-                                                        </th>);}}                                              
-                                            </Droppable>
-
-                                })}
-                            </tr>
-                        })}
-                    </tbody>
-                </table>
-                </DragDropContext>
+                <DragDropTable calendar={this.calendar} plans={this.state.plans} year={this.state.year} month={this.state.month} changeWeekandDay={this.changeWeekandDay} addPlanContent={this.addPlanContent}/>
                 <ChoiceWeek choiceWeek={this.state.choiceWeek} addPlanContent={this.addPlanContent} plans={this.state.plans} year={this.state.year} month={this.state.month}/>
-                <PlanSlider plans={this.state.plans} year={this.state.year} month={this.state.month} day={this.state.day} changeTimes={this.changeTimes}/>
+                <PlanSlider plans={this.state.plans} year={this.state.year} month={this.state.month} day={this.state.day} addPlanContent={this.addPlanContent}/>
             </Fragment>
         );
     }

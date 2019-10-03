@@ -39,6 +39,7 @@ export default class ChoiceWeek extends React.Component{
 
     addPlanContent(event){
         //this.state.plansにpuchする(あまり好ましくはないかもしれない)
+        const copyPlans = this.props.plans;
         this.newPlan={
             id: this.props.plans.length,
             date: this.props.year+"/"+this.props.month+"/"+event.target.name,
@@ -46,7 +47,8 @@ export default class ChoiceWeek extends React.Component{
             endTime: this.state.planEndTime[event.target.id],
             plan: this.state.planContent[event.target.id]
         };
-        this.props.addPlanContent(this.newPlan);
+        copyPlans.push(this.newPlan);
+        this.props.addPlanContent(copyPlans);
     }
     render(){
         return (

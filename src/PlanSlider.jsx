@@ -6,7 +6,22 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Z_ASCII } from "zlib";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
+
 export default class PlanSlider extends React.Component{
+    constructor(props){
+        super(props);
+    }
+    changeTimes = Plan => (render, handle, value, un, percent)=>{
+        let copyPlans = this.props.plans;
+        copyPlans.map( (plan,id) =>{
+            if(plan.date.split("/")[2] == this.props.day && Plan.id == plan.id){
+                plan.startTime = value[0];
+                plan.endTime = value[1];
+            }
+        });
+        this.props.addPlanContent(copyPlans);
+        //console.log(event);
+    };
     render(){
         return (
             <div>{this.props.plans.map(content => {
@@ -23,7 +38,7 @@ export default class PlanSlider extends React.Component{
                                 }}
                                 step = {1}
                                 pips={{ mode: 'count', values: 25 }}
-                                onChange ={this.props.changeTimes(content)}
+                                onChange ={this.changeTimes(content)}
                                 clickablePips
                             />
                         </div>
