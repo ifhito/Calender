@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Z_ASCII } from "zlib";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import DropTh from "./DropTh.jsx";
-
+//カレンダーの一行の定義
 export default class Tr extends React.Component{
     render(){
         return (
@@ -18,16 +18,16 @@ export default class Tr extends React.Component{
                     if(this.props.plans.length != 0){
                         this.props.plans.map(content => {
                             if(this.props.year+"/"+this.props.month+"/"+day == content.date){
-                                width = "200";
-                                height = "200";
+                                width = "100";
+                                height = "100";
                             }else{
-                                width = "200";
-                                height = "200";
+                                width = "100";
+                                height = "100";
                             }
                         })
                     }else{
-                        width = "200";
-                        height = "200";
+                        width = "100";
+                        height = "100";
                     }
                     //マスのReturn
                     return(
@@ -35,6 +35,7 @@ export default class Tr extends React.Component{
                         changeWeekandDay={this.props.changeWeekandDay}
                         addPlanContent={this.props.addPlanContent}
                         day={day}
+                        choiceDay={this.props.day}
                         i={this.props.i}
                         j={j}
                         width={width}

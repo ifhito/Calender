@@ -15,13 +15,17 @@ export default {
   module: {
     rules: [
       {
-        test: /\.jsx$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader'
+      test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-env']
+          }
+        }]
       },
-      { test: /\.css$/, loader: "style-loader!css-loader" }
-    ]
-  },
+      { test: /\.css$/, loader: "style-loader!css-loader" }]
+    },
 
   resolve: {
     extensions: ['.js', '.jsx']

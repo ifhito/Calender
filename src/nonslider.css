@@ -352,7 +352,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .examples {
-    width: 50%;
-    border: 1px solid #aaa;
+    width: 70%;
+    /* border: 1px solid #aaa; */
     padding: 20px 40px;
 }

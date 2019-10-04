@@ -1,15 +1,18 @@
 import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
-import Nouislider from 'react-nouislider';
+import Nouislider from 'react-nouislider'
 import "./nonslider.css"
-import 'bootstrap/dist/css/bootstrap.css';
-import { Z_ASCII } from "zlib";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import PlanSlider from "./PlanSlider.jsx";
-import ChoiceWeek from "./ChoiceWeek.jsx";
-import DragDropTable from "./DragDropTable.jsx";
+import "./Calendar.css"
+import 'bootstrap/dist/css/bootstrap.css'
+import { Z_ASCII } from "zlib"
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
+import PlanSlider from "./PlanSlider.jsx"
+import ChoiceWeek from "./ChoiceWeek.jsx"
+import DragDropTable from "./DragDropTable.jsx"
+import ChangeMonth from "./ChangeMonth.jsx"
 
-class App extends React.Component{
+//メインファイル
+class Calendar extends React.Component{
     //初期化
     constructor(props){
         super(props);
@@ -21,6 +24,7 @@ class App extends React.Component{
         const today = new Date().getDate()
         //表示するカレンダーの日にちを取得
         this.calendar = this.createCalender(todayYear,todayMonth);
+        //現在の年月日、選択している週、予定の配列
         this.state = {
             year: todayYear,
             month: todayMonth,
@@ -31,8 +35,6 @@ class App extends React.Component{
         //bindしてthisを代入
         this.changeMonth = this.changeMonth.bind(this);
         this.changeWeekandDay = this.changeWeekandDay.bind(this);
-        // this.changeTimes = this.changeTimes.bind(this);
-        //this.changeContent = this.changeContent.bind(this);
         this.addPlanContent = this.addPlanContent.bind(this);
     }
     //表示する月日を変更するメソッド
@@ -53,7 +55,13 @@ class App extends React.Component{
     }
     //カレンダーをクリックすると週の変更が行われるメソッド
     changeWeekandDay(choiceDay){
-        this.setState({choiceWeek: this.calendar[Math.ceil(choiceDay/7) - 1]});
+        this.calendar.map(week =>{
+            console.log(choiceDay); 
+            if(week.includes(parseInt(choiceDay))){
+
+                this.setState({choiceWeek: week});
+            }
+        });
         this.setState({day: choiceDay});
     }
     //planをカレンダー上に入れるためのメソッド(onClick)
@@ -66,7 +74,6 @@ class App extends React.Component{
 
     //カレンダーを作成するメソッド
     createCalender(year, month){
-        console.log(month);
         //前の月の一番初めの曜日取得
         const firstDay = new Date(year, month - 1, 1).getDay();
         //今月の日数
@@ -89,17 +96,37 @@ class App extends React.Component{
         this.calendar = this.createCalender(this.state.year,this.state.month);
         return (
             <Fragment>
-                <div>
-                    <button onClick = {() => this.changeMonth(-1)}>＜＜</button>
-                    <span>{this.state.year}年{this.state.month}月</span>
-                    <button onClick = {() => this.changeMonth(1)}>＞＞</button>
-                </div>
-                <DragDropTable calendar={this.calendar} plans={this.state.plans} year={this.state.year} month={this.state.month} changeWeekandDay={this.changeWeekandDay} addPlanContent={this.addPlanContent}/>
-                <ChoiceWeek choiceWeek={this.state.choiceWeek} addPlanContent={this.addPlanContent} plans={this.state.plans} year={this.state.year} month={this.state.month}/>
-                <PlanSlider plans={this.state.plans} year={this.state.year} month={this.state.month} day={this.state.day} addPlanContent={this.addPlanContent}/>
+                <ChangeMonth
+                    changeMonth={this.changeMonth}
+                    year={this.state.year}
+                    month={this.state.month}
+                />
+                <DragDropTable
+                    calendar={this.calendar}
+                    plans={this.state.plans}
+                    year={this.state.year}
+                    month={this.state.month}
+                    day={this.state.day}
+                    changeWeekandDay={this.changeWeekandDay}
+                    addPlanContent={this.addPlanContent}
+                />
+                <ChoiceWeek
+                    choiceWeek={this.state.choiceWeek}
+                    addPlanContent={this.addPlanContent}
+                    plans={this.state.plans}
+                    year={this.state.year}
+                    month={this.state.month}
+                />
+                <PlanSlider
+                    plans={this.state.plans}
+                    year={this.state.year}
+                    month={this.state.month}
+                    day={this.state.day}
+                    addPlanContent={this.addPlanContent}
+                />
             </Fragment>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<Calendar />, document.getElementById('calendar'));
