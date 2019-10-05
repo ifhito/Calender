@@ -1,10 +1,8 @@
 import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
-import Nouislider from 'react-nouislider';
-import "./nonslider.css"
-import 'bootstrap/dist/css/bootstrap.css';
-import { Z_ASCII } from "zlib";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import Nouislider from 'react-nouislider'
+import "../css/nonslider.css"
+import { Z_ASCII } from "zlib"
 
 //日の予定の時間をスライダーで変化するためのコンポーネント
 export default class PlanSlider extends React.Component{
@@ -27,11 +25,28 @@ export default class PlanSlider extends React.Component{
         //console.log(event);
     };
     render(){
+        let num = 0;
+        let pips = null;
+        this.props.plans.map( content => {
+            if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
+                num +=1;
+            }
+        });
         return (
-            <div>
-                {this.props.plans.map(content => {
-                    //予定の時間をバーで調節できる
-                    if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
+            <div className={"sliders"}>
+                <div className={"title"}>{this.props.day} days scheduled time</div>
+                <div className={"Content"}>
+                    {this.props.plans.map(content => {
+                        {/* console.log(num); */}
+                        //予定の時間をバーで調節できる
+                        if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
+
+                            //最後のスライダーの下に目盛りを表示させる
+                            num -=1;
+                            if(num==0){
+                                pips = { mode: 'count', values: 25 };
+                            }
+
                             return (
                                 <div className={"sliderContent"}>
                                     <span className={"planName"}>
@@ -46,7 +61,7 @@ export default class PlanSlider extends React.Component{
                                             max: [24],
                                             }}
                                             step = {1}
-                                            pips={{ mode: 'count', values: 25 }}
+                                            pips={pips}
                                             onChange ={this.changeTimes(content)}
                                             clickablePips
                                         />
@@ -54,8 +69,9 @@ export default class PlanSlider extends React.Component{
                                 </div>
                             );
                         }
-                })
-                }
+                    })
+                    }
+                </div>
             </div>
         );
     }

@@ -1,10 +1,7 @@
 import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
-import Nouislider from 'react-nouislider';
-import "./nonslider.css"
-import 'bootstrap/dist/css/bootstrap.css';
 import { Z_ASCII } from "zlib";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {Draggable} from "react-beautiful-dnd";
 
 //ドラッグ&ドロップできる予定のコンポーネント
 export default class DnDContent extends React.Component{

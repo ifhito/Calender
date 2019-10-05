@@ -5,7 +5,7 @@ const dist = path.resolve(__dirname, 'dist')
 
 export default {
   mode: 'development',
-  entry: src + '/index.jsx',
+  entry: './src/js/index.jsx',
 
   output: {
     path: dist,

@@ -1,10 +1,7 @@
 import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
-import Nouislider from 'react-nouislider';
-import "./nonslider.css"
-import 'bootstrap/dist/css/bootstrap.css';
 import { Z_ASCII } from "zlib";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { Droppable } from "react-beautiful-dnd";
 import DnDContent from "./DnDContent.jsx";
 
 //テーブルマスのコンポーネント
@@ -28,11 +25,12 @@ export default class DropTh extends React.Component{
             //DropできるthにするためにライブラリのコンポーネントDroppableで囲んでいる
             <Droppable droppableId={`${this.props.day}`}>
                 {(provided, snapshot) => {
+                    {/* 今日であった場合はマスの色を変化させる */}
                     let color = "#ffffff";
-                    if(this.props.choiceDay == this.props.day){
-                        color = "#fffacd";
-                    }else if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
+                    if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
                         color = "#00bfff";
+                    }else if(this.props.choiceDay == this.props.day){
+                        color = "#fffacd";
                     }
                     return(
                         <div
@@ -41,8 +39,6 @@ export default class DropTh extends React.Component{
                             key={`${this.props.i}${this.props.j}`}
                             ref={provided.innerRef}
                             data-title={this.props.day}
-                            width={this.props.width}
-                            height={this.props.height}
                             onClick={event => this.changeWeekandDay(event)}
                             style={{backgroundColor:color}}
                         >
