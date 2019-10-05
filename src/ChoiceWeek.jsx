@@ -67,7 +67,7 @@ export default class ChoiceWeek extends React.Component{
                 {this.props.choiceWeek.map((day, j) => {
                     //予定を入れるところの描画
                     if(day != null){
-                    return <div key={`${j}`}>
+                    return <div className={"plusPlan"} key={`${j}`}>
                         {day}日
                         予定
                         <input type="text" id={j} name = "planContent" value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />

@@ -96,34 +96,38 @@ class Calendar extends React.Component{
         this.calendar = this.createCalender(this.state.year,this.state.month);
         return (
             <Fragment>
-                <ChangeMonth
-                    changeMonth={this.changeMonth}
-                    year={this.state.year}
-                    month={this.state.month}
-                />
-                <DragDropTable
-                    calendar={this.calendar}
-                    plans={this.state.plans}
-                    year={this.state.year}
-                    month={this.state.month}
-                    day={this.state.day}
-                    changeWeekandDay={this.changeWeekandDay}
-                    addPlanContent={this.addPlanContent}
-                />
-                <ChoiceWeek
-                    choiceWeek={this.state.choiceWeek}
-                    addPlanContent={this.addPlanContent}
-                    plans={this.state.plans}
-                    year={this.state.year}
-                    month={this.state.month}
-                />
-                <PlanSlider
-                    plans={this.state.plans}
-                    year={this.state.year}
-                    month={this.state.month}
-                    day={this.state.day}
-                    addPlanContent={this.addPlanContent}
-                />
+                <div className={"container1"}>   
+                    <ChangeMonth
+                        changeMonth={this.changeMonth}
+                        year={this.state.year}
+                        month={this.state.month}
+                    />
+                    <DragDropTable
+                        calendar={this.calendar}
+                        plans={this.state.plans}
+                        year={this.state.year}
+                        month={this.state.month}
+                        day={this.state.day}
+                        changeWeekandDay={this.changeWeekandDay}
+                        addPlanContent={this.addPlanContent}
+                    />
+                </div>
+                <div className={"container2"}>
+                    <ChoiceWeek
+                        choiceWeek={this.state.choiceWeek}
+                        addPlanContent={this.addPlanContent}
+                        plans={this.state.plans}
+                        year={this.state.year}
+                        month={this.state.month}
+                    />
+                    <PlanSlider
+                        plans={this.state.plans}
+                        year={this.state.year}
+                        month={this.state.month}
+                        day={this.state.day}
+                        addPlanContent={this.addPlanContent}
+                    />
+                </div>
             </Fragment>
         );
     }

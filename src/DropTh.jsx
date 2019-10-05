@@ -35,7 +35,8 @@ export default class DropTh extends React.Component{
                         color = "#00bfff";
                     }
                     return(
-                        <th 
+                        <div
+                            className={"th"}
                             valign="top"
                             key={`${this.props.i}${this.props.j}`}
                             ref={provided.innerRef}
@@ -63,7 +64,7 @@ export default class DropTh extends React.Component{
                         })
                         }
                         {provided.placeholder}
-                    </th>);}}                                              
+                    </div>);}}                                              
             </Droppable>
         );
     }

@@ -33,20 +33,24 @@ export default class PlanSlider extends React.Component{
                     //予定の時間をバーで調節できる
                     if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
                             return (
-                                <div className = "examples">
-                                    {content.plan}
-                                    {/* Nouisliderはライブラリのコンポーネント */}
-                                    <Nouislider
-                                        start={[content.startTime, content.endTime]}
-                                        range={{
-                                        min: [0],
-                                        max: [24],
-                                        }}
-                                        step = {1}
-                                        pips={{ mode: 'count', values: 25 }}
-                                        onChange ={this.changeTimes(content)}
-                                        clickablePips
-                                    />
+                                <div className={"sliderContent"}>
+                                    <span className={"planName"}>
+                                        {content.plan}
+                                    </span>
+                                        {/* Nouisliderはライブラリのコンポーネント */}
+                                        <div className={"slider"}>
+                                        <Nouislider
+                                            start={[content.startTime, content.endTime]}
+                                            range={{
+                                            min: [0],
+                                            max: [24],
+                                            }}
+                                            step = {1}
+                                            pips={{ mode: 'count', values: 25 }}
+                                            onChange ={this.changeTimes(content)}
+                                            clickablePips
+                                        />
+                                        </div>
                                 </div>
                             );
                         }

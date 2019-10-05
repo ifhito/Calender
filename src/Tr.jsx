@@ -10,12 +10,12 @@ import DropTh from "./DropTh.jsx";
 export default class Tr extends React.Component{
     render(){
         return (
-            <tr key={this.props.week.join("")}>
+            <div className={"tr"} key={this.props.week.join("")}>
                 {this.props.week.map((day, j) => { 
                     let width = "";
                     let height = "";
                     //予定の有る無しでwidth,heightの変更
-                    if(this.props.plans.length != 0){
+                    {/* if(this.props.plans.length != 0){
                         this.props.plans.map(content => {
                             if(this.props.year+"/"+this.props.month+"/"+day == content.date){
                                 width = "100";
@@ -28,7 +28,7 @@ export default class Tr extends React.Component{
                     }else{
                         width = "100";
                         height = "100";
-                    }
+                    } */}
                     //マスのReturn
                     return(
                         <DropTh 
@@ -46,7 +46,7 @@ export default class Tr extends React.Component{
                         />
                         );
                 })}
-            </tr>
+            </div>
         );
     }
 }

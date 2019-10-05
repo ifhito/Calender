@@ -31,16 +31,16 @@ export default class DragDropTable extends React.Component{
     render(){
         return (
                 <DragDropContext onDragEnd={this.onDragEnd}>
-                <table　table-layout={"fixed"}>
-                <thead>
-                    <tr>
-                        <th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th>
-                    </tr>
-                </thead>
-                    <tbody>
+                        <div className={"tr"}>
+                            {["日","月","火","水","木","金","土"].map(day=>{
+                                return <div className={"th-head"}>{day}</div>;
+                            })
+                            }
+                        </div>
                         {this.props.calendar.map((week, i) => {
                             //カレンダーの表の内部を作成
                             return(
+                                
                                 <Tr
                                     week={week}
                                     i={i} plans={this.props.plans}
@@ -51,8 +51,6 @@ export default class DragDropTable extends React.Component{
                                     addPlanContent={this.props.addPlanContent}
                                 />);
                         })}
-                    </tbody>
-                </table>
                 </DragDropContext>
         );
     }

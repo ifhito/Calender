@@ -10,7 +10,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 export default class ChangeMonth extends React.Component{
     render(){
         return (
-                <div>
+                <div className={"changeMonth"}>
                     <button onClick = {() => this.props.changeMonth(-1)}>＜＜</button>
                     <span>{this.props.year}年{this.props.month}月</span>
                     <button onClick = {() => this.props.changeMonth(1)}>＞＞</button>

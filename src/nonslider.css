@@ -350,9 +350,3 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     top: 50%;
     right: 120%;
 }
-
-.examples {
-    width: 70%;
-    /* border: 1px solid #aaa; */
-    padding: 20px 40px;
-}
