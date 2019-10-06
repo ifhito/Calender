@@ -57,23 +57,29 @@ export default class DragDropTable extends React.Component{
 
         //カレンダーをクリックすると週の変更が行われるメソッド
     changeWeekandDay(choiceDay){
-        //予定を設定する部分が表示されるようにstyleを用意
-        const style={
-            padding: 10+"px"+" 0",
-            height: "auto",
-            opacity: 1,
-            margin: 5+"px"
-        }
-        this.props.calendar.map(week =>{
-            // console.log(choiceDay); 
-            if(week.includes(parseInt(choiceDay))){
-                this.setState({choiceweek: week});
+        console.log(choiceDay);
+        if(choiceDay != "delete"){
+            //週のstateを変更
+            if(choiceDay != null){
+                //予定を設定する部分が表示されるようにstyleを用意
+                const style={
+                    padding: 10+"px"+" 0",
+                    height: "auto",
+                    opacity: 1,
+                    margin: 5+"px"
+                }
+                this.props.calendar.map(week =>{
+                    // console.log(choiceDay); 
+                    if(week.includes(parseInt(choiceDay))){
+                        this.setState({choiceweek: week});
+                    }
+                });
+                this.setState({
+                    day: choiceDay,
+                    scheduleStyle: style
+                });
             }
-        });
-        this.setState({
-            day: choiceDay,
-            scheduleStyle: style
-        });
+        }
     }
     //planをカレンダー上に入れるためのメソッド(onClick)
     addPlanContent(newPlans){
@@ -113,7 +119,7 @@ export default class DragDropTable extends React.Component{
                                 {/* 現在、選択されている日が含まれた週の場合は予定の設定を行う部分を表示する */}
                                 {week.includes(parseInt(this.state.day)) && 
                                 <div key={"weeks"+i} className={"container2"} style={this.state.scheduleStyle}>
-                                    <button　className={"closed"} onClick={this.close}>×</button>
+                                    <button　className={"closedButton"} onClick={this.close}>×</button>
                                         {/* 週の予定を設定するためのコンポーネント */}
                                         <div className={"setting"}>
                                         <SetWeekPlan
@@ -123,6 +129,7 @@ export default class DragDropTable extends React.Component{
                                             day={this.state.day}
                                             choiceweek={this.state.choiceweek}
                                             addPlanContent={this.addPlanContent}
+                                            changeWeekandDay={this.changeWeekandDay}
                                         />
                                         {/* 選択している日の予定を調整するスライダーのコンポーネント */}
                                         <PlanSlider

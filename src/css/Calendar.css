@@ -30,7 +30,7 @@
 }
 
 /* settingを消すbuttonの装飾 */
-.closed {
+.closedButton {
     align-self: flex-end;
     width: 30px;
     height: 30px;
@@ -40,7 +40,11 @@
     color: #000000;
     background: none;
     line-height: 0%;
-    display: inline;
+}
+
+.closedButton:focus {
+    border: none;
+    outline: none;
 }
 
 /* Trの要素==================================================== */
@@ -96,6 +100,8 @@
 /* 予定のキャンセルボタンの装飾 */
 .cancelButton {
     padding: 0;
+    border: none;
+    outline: none;
     background: #6091d3;
     color: #FFFFFF;
     overflow: hidden;
@@ -104,6 +110,10 @@
     display: inline;
 }
 
+.monthButton:focus {
+    border: none;
+    outline: none;
+}
 
 /* hoverで色変えたかった… */
 /* .th:hover {
@@ -175,17 +185,21 @@
 .Month {
     display: flex;
     justify-content: space-between;
-    font-size: 60px;
+    font-size: 70px;
 }
 
 
 /* 月の変更用のボタンを囲っている */
 .monthButton {
     border: none;
-    outline: none;
     background-color: transparent;
 }
 
+.monthButton:focus {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
 
 /* ============================================================== */
 
@@ -218,8 +232,11 @@
     letter-spacing: 1px;
     text-align: center;
     text-indent: 1px;
-    text-align: center;
     padding: 5px;
+}
+
+.planError {
+    text-align: center;
 }
 
 /* インプット要素のテキストのレイアウト */

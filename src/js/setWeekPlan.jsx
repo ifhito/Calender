@@ -80,18 +80,18 @@ export default class SetWeekPlan extends React.Component{
                             color = "#ecf0f1";
                         }
                     return(
-
-                        <div className={"ScheduledPlan"} style={{backgroundColor: color}} key={`${j}`}>
+                        <div >
+                        <div className={"ScheduledPlan"} style={{backgroundColor: color}} key={`${j}`} data-title={day} onClick={event => this.props.changeWeekandDay(event.target.getAttribute("data-title"))}>
                             <div className={"day"}>
                                 {day}({week[j]})
                             </div>
                             <div className={"settingPlan"}>
                                 plan: 
-                                <input type="text" id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
+                                <input type="text" data-title={day} id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
                             </div>
                             <div className={"settingTime"}>
                                 Time:
-                                <select type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
+                                <select data-title={day} type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
                                     {[...Array(25).keys()].map((time,i) => {
                                         return <option key={"option1"+i}value={time}>{time}</option>
                                     })}
@@ -104,9 +104,10 @@ export default class SetWeekPlan extends React.Component{
                                 </select>
                                 <input type="button" name={day} value="+" id={j} onClick={(event) => this.addPlanContent(event)}/>
                             </div>
-                            <div>
+                        </div>
+                        <div className={"planError"}>
                                 {this.state.error[j]}
-                            </div>
+                        </div>
                         </div>
                     );
                     }

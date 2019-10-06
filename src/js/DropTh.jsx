@@ -10,16 +10,16 @@ export default class DropTh extends React.Component{
         super(props);
     }
     //現在のweekとdayの変更(クリックした週とその日の予定設定画面の表示)
-    changeWeekandDay(event){
-        if(event.target.getAttribute("data-title") != "delete"){
-            //クリックした週を格納
-            const choiceDay = event.target.getAttribute("data-title");
-            //週のstateを変更
-            if(choiceDay != null){
-                this.props.changeWeekandDay(choiceDay);
-            }
-        }
-    }
+    // changeWeekandDay(event){
+    //     if(event.target.getAttribute("data-title") != "delete"){
+    //         //クリックした週を格納
+    //         const choiceDay = event.target.getAttribute("data-title");
+    //         //週のstateを変更
+    //         if(choiceDay != null){
+    //             this.props.changeWeekandDay(choiceDay);
+    //         }
+    //     }
+    // }
     render(){
         let color = "#ffffff";
         if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
@@ -42,7 +42,7 @@ export default class DropTh extends React.Component{
                             className={"dropSpace"}
                             key={`${this.props.i}${this.props.j}`}
                             data-title={this.props.day}
-                            onClick={event => this.changeWeekandDay(event)}
+                            onClick={event => this.props.changeWeekandDay(event.target.getAttribute("data-title"))}
                             ref={provided.innerRef}
                         >
                         {provided.placeholder}
@@ -55,7 +55,8 @@ export default class DropTh extends React.Component{
                                             <DnDContent
                                                 key={"drop"+id}
                                                 content={content}
-                                                id={id} index={this.props.i+this.props.j}
+                                                id={id} 
+                                                index={this.props.i+this.props.j}
                                                 day={this.props.day} plans={this.props.plans}
                                                 addPlanContent={this.props.addPlanContent}
                                             />
