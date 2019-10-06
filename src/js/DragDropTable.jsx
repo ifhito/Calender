@@ -4,7 +4,7 @@ import { Z_ASCII } from "zlib";
 import { DragDropContext } from "react-beautiful-dnd";
 import Tr from "./Tr.jsx";
 import PlanSlider from "./PlanSlider.jsx"
-import SetWeekPlan from "./setWeekPlan.jsx"
+import SetWeekPlan from "./SetWeekPlan.jsx"
 
 //Tableの親コンポーネント
 export default class DragDropTable extends React.Component{

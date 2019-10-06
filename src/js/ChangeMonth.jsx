@@ -2,7 +2,7 @@ import React,{Fragment} from "react"
 import ReactDOM from "react-dom"
 import { Z_ASCII } from "zlib";
 
-//月を変更する
+//月を変更するコンポーネント
 export default class ChangeMonth extends React.Component{
     render(){
         // 数字を月の名前に変化させるための配列

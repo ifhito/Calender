@@ -70,14 +70,12 @@ export default class SetWeekPlan extends React.Component{
                 {this.props.choiceweek.map((day, j) => {
 
                     const week = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-                    let color;
+                    let color = "#f7f1e3";
                     //予定を入れるところの描画
                     if(day != null){
                         //選択されている日の場合は背景色を変更する
                         if(day == parseInt(this.props.day)){
-                            color = "#fffacd";
-                        }else{
-                            color = "#ecf0f1";
+                            color = "#74b9ff";
                         }
                     return(
                         <div >

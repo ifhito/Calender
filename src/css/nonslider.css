@@ -114,6 +114,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
     top: -6px;
 }
 
+/* 書き換えた部分 */
 .noUi-horizontal .noUi-handle:hover {
 
     height: 300px;
@@ -123,6 +124,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
     width: 18px;
 }
 
+/* ハンドルの要素の大きさを指定 */
 .noUi-vertical .noUi-handle {
     width: 28px;
     height: 34px;

@@ -9,23 +9,13 @@ export default class DropTh extends React.Component{
     constructor(props){
         super(props);
     }
-    //現在のweekとdayの変更(クリックした週とその日の予定設定画面の表示)
-    // changeWeekandDay(event){
-    //     if(event.target.getAttribute("data-title") != "delete"){
-    //         //クリックした週を格納
-    //         const choiceDay = event.target.getAttribute("data-title");
-    //         //週のstateを変更
-    //         if(choiceDay != null){
-    //             this.props.changeWeekandDay(choiceDay);
-    //         }
-    //     }
-    // }
     render(){
-        let color = "#ffffff";
+        /* 今日であった場合はマスの色を変化させる */
+        let color = "#f7f1e3";
         if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
-            color = "#00bfff";
+            color = "#ffeaa7";
         }else if(this.props.choiceDay == this.props.day){
-            color = "#fffacd";
+            color = "#74b9ff";
         }
         return (
             <div 
@@ -36,7 +26,6 @@ export default class DropTh extends React.Component{
             {this.props.day}
             <Droppable droppableId={`${this.props.day}`}>
                 {(provided, snapshot) => {
-                    {/* 今日であった場合はマスの色を変化させる */}
                     return(
                         <div
                             className={"dropSpace"}
