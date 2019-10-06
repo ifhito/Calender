@@ -115,10 +115,10 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-origin {
 }
 
 /* 書き換えた部分 */
-.noUi-horizontal .noUi-handle:hover {
+/* .noUi-horizontal .noUi-handle:hover {
 
     height: 300px;
-}
+} */
 
 .noUi-vertical {
     width: 18px;
@@ -253,6 +253,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .noUi-marker {
     position: absolute;
     background: none;
+
 }
 
 .noUi-marker-sub {
