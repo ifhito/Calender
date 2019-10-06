@@ -17,6 +17,7 @@
     background: #e67e22;
 }
 
+/* 設定の全体の要素を囲っているCSS */
 .container2 {
     display: flex;
     flex-direction: column;
@@ -42,6 +43,7 @@
     line-height: 0%;
 }
 
+/* クリック時の青い枠を消すための設定 */
 .closedButton:focus {
     border: none;
     outline: none;
@@ -116,11 +118,6 @@
     border: none;
     outline: none;
 }
-
-/* hoverで色変えたかった… */
-/* .th:hover {
-    background-color: #6091d3;
-} */
 
 /* ============================================================= */
 /* =================PlanSlider================================= */
@@ -197,6 +194,7 @@
     background-color: transparent;
 }
 
+/* クリック時の青い枠を消すため */
 .monthButton:focus {
     border: none;
     outline: none;
@@ -222,12 +220,13 @@
     padding: 2px;
 }
 
+/* タイトル以外のスケジュール要素を含んでいる */
 .SchedulePlans {
     display: flex;
     flex-direction: column;
 }
 
-/* setWeekPlanのタイトルを抜いた全ての要素を囲んでいる */
+/* setWeekPlanのエラーを除いた1日毎の設定の要素を囲んでいる */
 .ScheduledPlan {
     display: flex;
     justify-content: space-between;
@@ -238,8 +237,14 @@
     background: #f7f1e3;
 }
 
+/* エラー表示の要素を囲んでいる */
 .planError {
     text-align: center;
+}
+
+/* 曜日の文字要素を囲んでいる */
+.day {
+    width: 53px;
 }
 
 /* インプット要素のテキストのレイアウト */
@@ -277,25 +282,6 @@ select {
     box-sizing: content-box;
     border-bottom: 2px solid #1b2538;
     outline: none;
-}
-
-/* =============================================================== */
-
-/* ===========input要素の文字の配置をよくするため====================== */
-.vertical-align input,
-.vertical-align select {
-    vertical-align: middle;
-}
-
-.vertical-align-em input,
-.vertical-align-em select {
-    vertical-align: 0.8em;
-}
-
-.position input,
-.position select {
-    position: relative;
-    top: -10px;
 }
 
 /* =============================================================== */

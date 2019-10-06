@@ -26,6 +26,7 @@ export default class DnDContent extends React.Component{
             //Dragを可能にするためにDraggableで囲んでいる
             <Draggable draggableId={`${this.props.id}`} index={this.props.index}>
                 {(provided, snapshot) => {
+                    {/* 予定要素とその削除ボタン */}
                 return (
                     <div 
                         className={"planContent"}

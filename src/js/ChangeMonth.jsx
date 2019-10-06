@@ -21,7 +21,6 @@ export default class ChangeMonth extends React.Component{
             12: "DECEMBER"
         }
         return (
-                    
                     <div className={"MonthAndYear"}>
                         <div className={"Year"}>{this.props.year}</div>
                         <div className={"Month"}>

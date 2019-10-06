@@ -66,9 +66,9 @@ export default class SetWeekPlan extends React.Component{
             <div　className={"plusPlan"}>
 
                 <div className={"title"}>Schedule A Week</div>
+
                 <div className={"schedulePlans"}>
                 {this.props.choiceweek.map((day, j) => {
-
                     const week = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
                     let color = "#f7f1e3";
                     //予定を入れるところの描画
@@ -79,33 +79,37 @@ export default class SetWeekPlan extends React.Component{
                         }
                     return(
                         <div key={"containar"+j}>
-                        <div className={"ScheduledPlan"} style={{backgroundColor: color}} key={`${j}`} data-title={day} onClick={event => this.props.changeWeekandDay(event.target.getAttribute("data-title"))}>
-                            <div className={"day"}>
-                                {day}({week[j]})
+                            <div className={"ScheduledPlan"} style={{backgroundColor: color}} key={`${j}`} data-title={day} onClick={event => this.props.changeWeekandDay(event.target.getAttribute("data-title"))}>
+                                {/* 日にち */}
+                                <div className={"day"}>
+                                    {day}({week[j]})
+                                </div>
+                                <div className={"settingPlan"}>
+                                    {/* 予定の内容 */}
+                                    plan: 
+                                    <input type="text" data-title={day} id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
+                                </div>
+                                <div className={"settingTime"}>
+                                    {/* 予定を行う時間 */}
+                                    Time:
+                                    <select data-title={day} type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
+                                        {[...Array(25).keys()].map((time,i) => {
+                                            return <option key={"option1"+i} value={time}>{time}</option>
+                                        })}
+                                    </select>
+                                    to
+                                    <select type="text" id={j} name = "planEndTime" value={this.state.planEndTime[j]} onChange={event => this.changeContent(event)}>
+                                        {[...Array(parseInt(25-this.state.planStartTime[j])).keys()].map((time,i) => {
+                                            return <option key={"option2"+i} value={time+parseInt(this.state.planStartTime[j])}>{time+parseInt(this.state.planStartTime[j])}</option>
+                                        })}
+                                    </select>
+                                    <input type="button" name={day} value="+" id={j} onClick={(event) => this.addPlanContent(event)}/>
+                                </div>
                             </div>
-                            <div className={"settingPlan"}>
-                                plan: 
-                                <input type="text" data-title={day} id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
-                            </div>
-                            <div className={"settingTime"}>
-                                Time:
-                                <select data-title={day} type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
-                                    {[...Array(25).keys()].map((time,i) => {
-                                        return <option key={"option1"+i} value={time}>{time}</option>
-                                    })}
-                                </select>
-                                to
-                                <select type="text" id={j} name = "planEndTime" value={this.state.planEndTime[j]} onChange={event => this.changeContent(event)}>
-                                    {[...Array(parseInt(25-this.state.planStartTime[j])).keys()].map((time,i) => {
-                                        return <option key={"option2"+i} value={time+parseInt(this.state.planStartTime[j])}>{time+parseInt(this.state.planStartTime[j])}</option>
-                                    })}
-                                </select>
-                                <input type="button" name={day} value="+" id={j} onClick={(event) => this.addPlanContent(event)}/>
-                            </div>
-                        </div>
-                        <div className={"planError"}>
+                            {/* エラーの表示 */}
+                            <div className={"planError"}>
                                 {this.state.error[j]}
-                        </div>
+                            </div>
                         </div>
                     );
                     }

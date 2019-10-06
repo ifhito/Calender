@@ -18,12 +18,14 @@ export default class DropTh extends React.Component{
             color = "#74b9ff";
         }
         return (
+            // 日にち
             <div 
                 className={"th"}
                 valign="top"
                 style={{backgroundColor:color}}
             >
             {this.props.day}
+            {/* ドロップ可能な場所 */}
             <Droppable droppableId={`${this.props.day}`}>
                 {(provided, snapshot) => {
                     return(

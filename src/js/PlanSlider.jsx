@@ -27,6 +27,7 @@ export default class PlanSlider extends React.Component{
     render(){
         let num = 0;
         let pips = null;
+        //スライダーの最後の要素にのみメモリをつけるためnumで要素数を数える
         this.props.plans.map( content => {
             if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
                 num +=1;
@@ -41,7 +42,7 @@ export default class PlanSlider extends React.Component{
                         //予定の時間をバーで調節できる
                         if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
 
-                            //最後のスライダーの下に目盛りを表示させる
+                            //numを減らしていき、最後のスライダーの下に目盛りを表示させる
                             num -=1;
                             if(num==0){
                                 pips = { mode: 'count', values: 25 };
