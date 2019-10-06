@@ -83,6 +83,7 @@ export default class DragDropTable extends React.Component{
         });
     }
     render(){
+        console.log(this.state.plans);
         return (
             // ドラッグ&ドロップを可能にするためコンポーネントで囲う
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -112,24 +113,26 @@ export default class DragDropTable extends React.Component{
                                 {/* 現在、選択されている日が含まれた週の場合は予定の設定を行う部分を表示する */}
                                 {week.includes(parseInt(this.state.day)) && 
                                 <div key={"weeks"+i} className={"container2"} style={this.state.scheduleStyle}>
-                                    {/* 週の予定を設定するためのコンポーネント */}
-                                    <SetWeekPlan
-                                        plans={this.state.plans}
-                                        year={this.props.year}
-                                        month={this.props.month}
-                                        day={this.state.day}
-                                        choiceweek={this.state.choiceweek}
-                                        addPlanContent={this.addPlanContent}
-                                    />
-                                    {/* 選択している日の予定を調整するスライダーのコンポーネント */}
-                                    <PlanSlider
-                                        plans={this.state.plans}
-                                        year={this.props.year}
-                                        month={this.props.month}
-                                        day={this.state.day}
-                                        addPlanContent={this.addPlanContent}
-                                    />
                                     <button　className={"closed"} onClick={this.close}>×</button>
+                                        {/* 週の予定を設定するためのコンポーネント */}
+                                        <div className={"setting"}>
+                                        <SetWeekPlan
+                                            plans={this.state.plans}
+                                            year={this.props.year}
+                                            month={this.props.month}
+                                            day={this.state.day}
+                                            choiceweek={this.state.choiceweek}
+                                            addPlanContent={this.addPlanContent}
+                                        />
+                                        {/* 選択している日の予定を調整するスライダーのコンポーネント */}
+                                        <PlanSlider
+                                            plans={this.state.plans}
+                                            year={this.props.year}
+                                            month={this.props.month}
+                                            day={this.state.day}
+                                            addPlanContent={this.addPlanContent}
+                                        />
+                                        </div>
                                 </div>
                                 }
                             </div>

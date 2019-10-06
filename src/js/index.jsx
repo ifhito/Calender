@@ -66,7 +66,6 @@ class Calendar extends React.Component{
         //setStateした際にもう一度カレンダーを作り直す
         this.calendar = this.createCalender(this.state.year,this.state.month);
         return (
-            <Fragment>
                 <div className={"container1"}>
                     <ChangeMonth
                         changeMonth={this.changeMonth}
@@ -79,7 +78,6 @@ class Calendar extends React.Component{
                         month={this.state.month}
                     />
                 </div>
-            </Fragment>
         );
     }
 }

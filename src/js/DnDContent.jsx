@@ -28,6 +28,7 @@ export default class DnDContent extends React.Component{
                 {(provided, snapshot) => {
                 return (
                     <div 
+                        className={"planContent"}
                         ref={provided.innerRef} 
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
@@ -35,6 +36,7 @@ export default class DnDContent extends React.Component{
                     >
                         {this.props.content.plan}
                         <button
+                            className ={"cancelButton"}
                             id={`${this.props.id}`}
                             data-title={"delete"}
                             onClick = {event => this.deletePlan(event)}

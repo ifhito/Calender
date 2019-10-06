@@ -36,7 +36,7 @@ export default class PlanSlider extends React.Component{
             <div className={"sliders"}>
                 <div className={"title"}>{this.props.day} days scheduled time</div>
                 <div className={"Content"}>
-                    {this.props.plans.map(content => {
+                    {this.props.plans.map((content,i) => {
                         {/* console.log(num); */}
                         //予定の時間をバーで調節できる
                         if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
@@ -48,7 +48,7 @@ export default class PlanSlider extends React.Component{
                             }
 
                             return (
-                                <div className={"sliderContent"}>
+                                <div className={"sliderContent"} key={"slider"+i}>
                                     <span className={"planName"}>
                                         {content.plan}
                                     </span>

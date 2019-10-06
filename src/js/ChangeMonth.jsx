@@ -7,29 +7,30 @@ export default class ChangeMonth extends React.Component{
     render(){
         // 数字を月の名前に変化させるための配列
         const monthName = {
-            1: "JAN",
-            2: "FEB",
-            3: "MAR",
-            4: "APR",
+            1: "JANUARY",
+            2: "FEBRUARY",
+            3: "MARCH",
+            4: "APRIL",
             5: "MAY",
-            6: "JUN",
-            7: "JUL",
-            8: "AUG",
-            9: "SEP",
-            10: "OCT",
-            11: "NOV",
-            12: "DEC"
+            6: "JUNE",
+            7: "JULY",
+            8: "AUGUST",
+            9: "SEPTEMBER",
+            10: "OCTOBER",
+            11: "NOVEMBER",
+            12: "DECEMBER"
         }
         return (
-                <div className={"changeMonth"}>
-                    <span className={"Year"}>{this.props.year}</span>
-                    <span className={"Month"}>
-                        <button className={"monthButton"} onClick = {() => this.props.changeMonth(-1)}>{"《"}</button>
-                        <span>{monthName[this.props.month]}</span>
-                        <button className={"monthButton"} onClick = {() => this.props.changeMonth(1)}>{"》"}</button>
-                    </span>
-                    <span className={"Year"}></span>
-                </div>
+                    
+                    <div className={"MonthAndYear"}>
+                        <div className={"Year"}>{this.props.year}</div>
+                        <div className={"Month"}>
+                            <button className={"monthButton"} onClick = {() => this.props.changeMonth(-1)}>{"《"}</button>
+                                <div>{monthName[this.props.month]}</div>
+                            <button className={"monthButton"} onClick = {() => this.props.changeMonth(1)}>{"》"}</button>
+                        </div>
+                    </div>
+                    
         );
     }
 }

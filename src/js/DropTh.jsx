@@ -21,35 +21,39 @@ export default class DropTh extends React.Component{
         }
     }
     render(){
+        let color = "#ffffff";
+        if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
+            color = "#00bfff";
+        }else if(this.props.choiceDay == this.props.day){
+            color = "#fffacd";
+        }
         return (
-            //DropできるthにするためにライブラリのコンポーネントDroppableで囲んでいる
+            <div 
+                className={"th"}
+                valign="top"
+                style={{backgroundColor:color}}
+            >
+            {this.props.day}
             <Droppable droppableId={`${this.props.day}`}>
                 {(provided, snapshot) => {
                     {/* 今日であった場合はマスの色を変化させる */}
-                    let color = "#ffffff";
-                    if(this.props.day == new Date().getDate() && this.props.year == new Date().getFullYear() && this.props.month == new Date().getMonth() + 1){
-                        color = "#00bfff";
-                    }else if(this.props.choiceDay == this.props.day){
-                        color = "#fffacd";
-                    }
                     return(
                         <div
-                            className={"th"}
-                            valign="top"
+                            className={"dropSpace"}
                             key={`${this.props.i}${this.props.j}`}
-                            ref={provided.innerRef}
                             data-title={this.props.day}
                             onClick={event => this.changeWeekandDay(event)}
-                            style={{backgroundColor:color}}
+                            ref={provided.innerRef}
                         >
-                        {this.props.day}
+                        {provided.placeholder}
                         {this.props.plans.map(
                             (content,id) => {
                             //plansのなかに予定が存在する場合は表に中身を追加
                             if(this.props.year+"/"+this.props.month+"/"+this.props.day == content.date){
                                         return (
                                             //表の中身
-                                            <DnDContent 
+                                            <DnDContent
+                                                key={"drop"+id}
                                                 content={content}
                                                 id={id} index={this.props.i+this.props.j}
                                                 day={this.props.day} plans={this.props.plans}
@@ -59,9 +63,9 @@ export default class DropTh extends React.Component{
                                 }
                         })
                         }
-                        {provided.placeholder}
                     </div>);}}                                              
             </Droppable>
+            </div>
         );
     }
 }

@@ -8,8 +8,8 @@ export default class SetWeekPlan extends React.Component{
         super(props);
         this.state={
             planContent:["","","","","","",""],
-            planStartTime: ["","","","","","",""],
-            planEndTime: ["","","","","","",""],
+            planStartTime: ["0","0","0","0","0","0","0"],
+            planEndTime: ["0","0","0","0","0","0","0"],
             error: ["","","","","","",""]
         }
     }
@@ -66,7 +66,7 @@ export default class SetWeekPlan extends React.Component{
             <div　className={"plusPlan"}>
 
                 <div className={"title"}>Schedule A Week</div>
-
+                <div className={"schedulePlans"}>
                 {this.props.choiceweek.map((day, j) => {
 
                     const week = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -82,28 +82,37 @@ export default class SetWeekPlan extends React.Component{
                     return(
 
                         <div className={"ScheduledPlan"} style={{backgroundColor: color}} key={`${j}`}>
-                            {day}({week[j]})
-                            plan: 
-                            <input type="text" id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
-                            Time:
-                            <select type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
-                                {[...Array(25).keys()].map((time,i) => {
-                                    return <option key={"option1"+i}value={time}>{time}</option>
-                                })}
-                            </select>
-                            to
-                            <select type="text" id={j} name = "planEndTime" value={this.state.planEndTime[j]} onChange={event => this.changeContent(event)}>
-                                {[...Array(25).keys()].map((time,i) => {
-                                    return <option key={"option2"+i}value={time}>{time}</option>
-                                })}
-                            </select>
-                            <input type="button" name={day} value="+" id={j} onClick={(event) => this.addPlanContent(event)}/>
-                            <div>{this.state.error[j]}</div>
+                            <div className={"day"}>
+                                {day}({week[j]})
+                            </div>
+                            <div className={"settingPlan"}>
+                                plan: 
+                                <input type="text" id={j} name={"planContent"} value={this.state.planContent[j]} onChange={event => this.changeContent(event)} />
+                            </div>
+                            <div className={"settingTime"}>
+                                Time:
+                                <select type="text" id={j} name={"planStartTime"} value={this.state.planStartTime[j]} onChange={event => this.changeContent(event)}>
+                                    {[...Array(25).keys()].map((time,i) => {
+                                        return <option key={"option1"+i}value={time}>{time}</option>
+                                    })}
+                                </select>
+                                to
+                                <select type="text" id={j} name = "planEndTime" value={this.state.planEndTime[j]} onChange={event => this.changeContent(event)}>
+                                    {[...Array(parseInt(25-this.state.planStartTime[j])).keys()].map((time,i) => {
+                                        return <option key={"option2"+i}value={time+parseInt(this.state.planStartTime[j])}>{time+parseInt(this.state.planStartTime[j])}</option>
+                                    })}
+                                </select>
+                                <input type="button" name={day} value="+" id={j} onClick={(event) => this.addPlanContent(event)}/>
+                            </div>
+                            <div>
+                                {this.state.error[j]}
+                            </div>
                         </div>
                     );
                     }
                 })
                 }
+                </div>
             </div>
         );
     }
