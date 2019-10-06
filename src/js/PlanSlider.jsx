@@ -55,10 +55,10 @@ export default class PlanSlider extends React.Component{
                                         {/* Nouisliderはライブラリのコンポーネント */}
                                         <div className={"slider"}>
                                         <Nouislider
-                                            start={[content.startTime, content.endTime]}
+                                            start={[parseInt(content.startTime), parseInt(content.endTime)]}
                                             range={{
-                                            min: [0],
-                                            max: [24],
+                                            min: 0,
+                                            max: 24,
                                             }}
                                             step = {1}
                                             pips={pips}
