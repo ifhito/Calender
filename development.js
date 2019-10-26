@@ -5,7 +5,7 @@ const dist = path.resolve(__dirname, 'dist')
 
 export default {
   mode: 'development',
-  entry: './src/js/index.jsx',
+  entry: ['@babel/polyfill','./src/js/index.jsx'],
 
   output: {
     path: __dirname + "/src/",
