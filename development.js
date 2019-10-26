@@ -8,8 +8,8 @@ export default {
   entry: './src/js/index.jsx',
 
   output: {
-    path: dist,
-    filename: 'bundle.js'
+    path: __dirname + "/src/",
+    filename: "client.min.js"
   },
 
   module: {
